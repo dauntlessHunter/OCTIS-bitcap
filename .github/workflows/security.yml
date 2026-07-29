@@ -1,0 +1,21 @@
+name: Security
+on:
+  push:
+    branches: [ main ]
+  pull_request: {}
+  schedule:
+    - cron: '0 6 * * 1'   # Mondays 06:00 UTC
+
+jobs:
+  security:
+    uses: dauntlessHunter/.github/.github/workflows/security.yml@main
+    with:
+      min-severity: HIGH
+      fail-on-findings: true
+      upload-sarif: false
+      slack-notify: true
+    secrets: inherit
+    permissions:
+      contents: read
+      security-events: write
+      pull-requests: read
